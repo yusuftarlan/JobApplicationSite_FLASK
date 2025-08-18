@@ -1,0 +1,1 @@
+print(get_applications_for_position(1))

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staj Başvuru - Kayıt Ol</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <style>
+      body {
+        background: linear-gradient(135deg, #55efc4, #74b9ff);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .register-card {
+        width: 500px;
+        border-radius: 20px;
+        background: #fff;
+        padding: 2.5rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.8s ease-in-out;
+      }
+
+      .register-card h3 {
+        font-weight: 600;
+        color: #2d3436;
+      }
+
+      .form-control {
+        border-radius: 10px;
+        padding: 10px 14px;
+      }
+
+      .btn-success {
+        border-radius: 12px;
+        padding: 10px;
+        font-weight: 500;
+        background: linear-gradient(135deg, #00b894, #00cec9);
+        border: none;
+        transition: 0.3s;
+      }
+
+      .btn-success:hover {
+        opacity: 0.9;
+        transform: scale(1.02);
+      }
+
+      .login-link {
+        font-size: 0.9rem;
+        text-decoration: none;
+        color: #00b894;
+        transition: 0.3s;
+      }
+
+      .login-link:hover {
+        text-decoration: underline;
+        color: #009170;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="register-card shadow-lg">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="mb-3">
+        {% for category, message in messages %}
+        <div
+          class="alert alert-{{ category }} alert-dismissible fade show"
+          role="alert">
+          {{ message }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"></button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+      <div class="text-center mb-4">
+        <h3>Kayıt Ol</h3>
+      </div>
+
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+
+        <!-- Ad ve Soyad yan yana -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            {{ form.name.label(class="form-label") }} {{
+            form.name(class="form-control", placeholder="Ad") }}
+          </div>
+          <div class="col-md-6">
+            {{ form.surname.label(class="form-label") }} {{
+            form.surname(class="form-control", placeholder="Soyad") }}
+          </div>
+        </div>
+
+        <!-- Kullanıcı adı ve E-posta yan yana -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            {{ form.username.label(class="form-label") }} {{
+            form.username(class="form-control", placeholder="Kullanıcı Adı") }}
+          </div>
+          <div class="col-md-6">
+            {{ form.email.label(class="form-label") }} {{
+            form.email(class="form-control", placeholder="E-posta") }}
+          </div>
+        </div>
+
+        <!-- Şifre ve Şifre Tekrar yan yana -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            {{ form.password.label(class="form-label") }} {{
+            form.password(class="form-control", placeholder="Şifre") }}
+          </div>
+          <div class="col-md-6">
+            {{ form.confirm_password.label(class="form-label") }} {{
+            form.confirm_password(class="form-control") }}
+          </div>
+        </div>
+
+        <div class="d-grid gap-2">
+          {{ form.submit_register(class="btn btn-success") }}
+        </div>
+        <div class="text-center mt-3">
+          <a href="{{ url_for('auth.login') }}" class="login-link"
+            >Zaten hesabın var mı? Giriş Yap</a
+          >
+        </div>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
