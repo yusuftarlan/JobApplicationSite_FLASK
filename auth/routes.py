@@ -82,3 +82,5 @@ def register():
                 flash("Kullanıcı oluştururken hata !", "danger")
                 return redirect(url_for("auth.login", form=form))
     return render_template('register.html', form=form)
+
+

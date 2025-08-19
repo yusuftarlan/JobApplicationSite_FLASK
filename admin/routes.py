@@ -10,18 +10,14 @@ admin_bp = Blueprint('admin', __name__, template_folder='templates')
 def admin_panel(user_id):
     users = get_all_user_info()
     positions = get_all_position_info()
+
     if request.method == 'POST':
-        if 'btn_detay' in request.form:
-            selected_id = request.form.get('btn_detay')
-            print("buton detay basildi")
-        elif 'btn_duzenle' in request.form:
-            selected_id = request.form.get('btn_duzenle')
-            print("buton duzenle basildi")
-        elif 'btn_sil' in request.form:
+        if 'btn_sil' in request.form:
             selected_id = request.form.get('btn_sil')
             set_position_passive(selected_id)
             flash("Pozisyon silindi.", "danger")
             return redirect(url_for('admin.admin_panel', user_id=user_id))
+        
     return render_template('admin_panel.html', user_id=user_id, users=users, positions=positions)
 
 

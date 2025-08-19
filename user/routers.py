@@ -13,8 +13,9 @@ def user(user_id):
     applied_positions = []
     for app in applications:
         applied_positions.append(app['position_id'])
-    print(applied_positions)
-    return render_template('user.html', positions=positions, user_id=user_id, user_info=user_info, applications=applications, applied_positions=applied_positions)
+
+    return render_template('user.html', positions=positions, user_id=user_id, user_info=user_info, 
+                           applications=applications, applied_positions=applied_positions)
 
 
 @user_bp.route('/user/<int:user_id>/newapplication/<int:position_id>', methods=["GET", "POST"])
