@@ -1,0 +1,42 @@
+
+services:
+  web:
+    build: ./flask_app
+    container_name: flask_app_compose
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    volumes:
+      - ./flask_app:/app   # kod değişiklikleri anında yansısın (dev için)
+    networks:
+      mynet123: # IP adreslerinin sabit olması için özel network tanımladım
+        ipv4_address: 172.18.0.20
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_compose
+    restart: always
+    environment:
+      MYSQL_DATABASE: flask_db
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypass
+    ports:
+      - "3306:3306"
+    volumes:
+      # SQL ilk dosya import etmesi için
+      - ./flask_db.sql:/docker-entrypoint-initdb.d/flask_db.sql
+      # Veritabanı dosyalarını kalıcı tutmak için
+      - mysql_data:/tmp/flask_db.sql
+
+    networks:
+      mynet123:
+        ipv4_address: 172.18.0.10
+
+volumes:
+  mysql_data:
+
+networks:
+  mynet123:
+    external: true
